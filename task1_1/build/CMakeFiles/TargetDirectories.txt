@@ -1,0 +1,3 @@
+F:/Dropbox/Cpp_AGrechnev/homework/task1/build/CMakeFiles/rebuild_cache.dir
+F:/Dropbox/Cpp_AGrechnev/homework/task1/build/CMakeFiles/task1.dir
+F:/Dropbox/Cpp_AGrechnev/homework/task1/build/CMakeFiles/edit_cache.dir

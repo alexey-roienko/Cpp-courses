@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+F:/Dropbox/Cpp_AGrechnev/homework/task5/Primes.cpp
+iostream
+-
+Primes.h
+F:/Dropbox/Cpp_AGrechnev/homework/task5/Primes.h
+
+F:/Dropbox/Cpp_AGrechnev/homework/task5/Primes.h
+vector
+-
+
+F:/Dropbox/Cpp_AGrechnev/homework/task5/fun.cpp
+fun.h
+F:/Dropbox/Cpp_AGrechnev/homework/task5/fun.h
+
+F:/Dropbox/Cpp_AGrechnev/homework/task5/fun.h
+
+F:/Dropbox/Cpp_AGrechnev/homework/task5/task5.cpp
+iostream
+-
+fun.h
+F:/Dropbox/Cpp_AGrechnev/homework/task5/fun.h
+Primes.h
+F:/Dropbox/Cpp_AGrechnev/homework/task5/Primes.h
+
