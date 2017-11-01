@@ -2,11 +2,51 @@
 // Created by Alexey Roienko, 2017
 
 #include <iostream>
+#include <iomanip> 
 #include "Bicycle.h"
 
-// initialization of class static variable
-unsigned int Bicycle::boughtBicyclesN = 0;
 
+std::array<std::string, static_cast<unsigned int>(BicycleTypes::COUNT)> Bicycle::bTypesDescr{
+	"Road bicycles are designed for traveling at speed on paved roads.",
+	"Touring bicycles are designed for bicycle touring and long journeys.",
+	"Hybrid bicycles are a compromise between the mountain and racing style bicycles which replaced European-style utility bikes in North America in the early 1990s.",
+	"Mountain bicycles are designed for off-road cycling. All mountain bicycles feature sturdy, highly durable frames and wheels, wide-gauge treaded tires, and cross-wise handlebars to help the rider resist sudden jolts",
+	"Racing bicycles are designed for speed, and the sport of competitive road racing.",
+	"BMX bikes are designed for stunts, tricks, and racing on dirt BMX tracks.",
+	"Cruiser bicycles are heavy framed bicycles designed for comfort, with curved back handlebars, padded seats, and balloon tires."
+};
+
+
+/*
+char* Bicycle::bTypesDescr[]={
+	"Road bicycles are designed for traveling at speed on paved roads.",
+	"Touring bicycles are designed for bicycle touring and long journeys.",
+	"Hybrid bicycles are a compromise between the mountain and racing style bicycles which replaced European-style utility bikes in North America in the early 1990s.",
+	"Mountain bicycles are designed for off-road cycling. All mountain bicycles feature sturdy, highly durable frames and wheels, wide-gauge treaded tires, and cross-wise handlebars to help the rider resist sudden jolts",
+	"Racing bicycles are designed for speed, and the sport of competitive road racing.",
+	"BMX bikes are designed for stunts, tricks, and racing on dirt BMX tracks.",
+	"Cruiser bicycles are heavy framed bicycles designed for comfort, with curved back handlebars, padded seats, and balloon tires."
+};
+*/
+
+// initialization of class static variable
+unsigned int Bicycle::createdBicyclesN = 0;
+
+// implementation of static method
+unsigned int Bicycle::getCreatedBicyclesN() {
+	return Bicycle::createdBicyclesN;
+}
+
+// Default constructor
+Bicycle::Bicycle() {
+	frameSize = 19.5;
+	wheelsDiameter = 26.0;
+	price = 10'000.0;
+	
+	createdBicyclesN++;
+	hasBought = false;
+	std::cout << "\tDefault constructor is being run..." << std::endl;
+}
 
 // Explicit constructor with parameters
 Bicycle::Bicycle(const BicycleTypes type_, const BicycleProducers producer_,
@@ -18,47 +58,35 @@ Bicycle::Bicycle(const BicycleTypes type_, const BicycleProducers producer_,
 	wheelsDiameter(wheelsDiameter_),
 	price(price_)
 {
-	boughtBicyclesN++;
+	createdBicyclesN++;
 	hasBought = false;
-	std::cout << "\tExplicit constructor is being run..." << std::endl;
+	std::cout << "\tExplicit constructor was run..." << std::endl;
 }
 
 // Destructor
 Bicycle::~Bicycle(){
-	std::cout << "\tDestructor is being run..." << std::endl;
+	std::cout << "\tDestructor is being run...\n" << std::endl;
 }
 
-// 'Getter' for 'type' field
-BicycleTypes Bicycle::getType() {
-	return type;
-}
+// 'Getter' for 'type' field is implemented in header
 // 'Setter' for 'type' field
 void Bicycle::setType(const BicycleTypes newType){
 	type = newType;
 }
  
-// 'Getter' for 'producer' field
-BicycleProducers Bicycle::getProducer(){
-	return producer;
-}
+// 'Getter' for 'producer' field is implemented in header
 // 'Setter' for 'producer' field
 void Bicycle::setProducer(const BicycleProducers newProducer){
 	producer = newProducer;
 }
 
-// 'Getter' for 'frameSize' field
-double Bicycle::getFrameSize(){
-	return frameSize;
-}
+// 'Getter' for 'frameSize' field is implemented in header
 // 'Setter' for 'frameSize' field
 void Bicycle::setFrameSize(const double newFrameSize){
 	frameSize = newFrameSize;
 }
 
-// 'Getter' for 'wheelsDiameter' field
-double Bicycle::getWheelsDiameter(){
-	return wheelsDiameter;
-}
+// 'Getter' for 'wheelsDiameter' field is implemented in header
 // 'Setter' for 'wheelsDiameter' field
 void Bicycle::setWheelsDiameter(const double newWheelsDiameter){
 	wheelsDiameter = newWheelsDiameter;
@@ -75,10 +103,7 @@ void Bicycle::setPrice(const double newPrice){
 	price = newPrice;
 }
 
-// 'Getter' for 'hasBought' field
-bool Bicycle::isBought() {
-	return hasBought;
-}
+// 'Getter' for 'hasBought' field is implemented in header
 // 'Setter' for 'hasBought' field
 void Bicycle::buyBicycle() {
 	hasBought = true;
@@ -86,7 +111,9 @@ void Bicycle::buyBicycle() {
 
 // 'toString' object method
 std::string Bicycle::toString(){
-	std::string s = "\nThis bicycle is of ";
+	using namespace std;
+	
+	string s = "This bicycle is of ";
 	switch (type){
 		case BicycleTypes::Road:
 			s += "Road";
@@ -143,15 +170,25 @@ std::string Bicycle::toString(){
 			s += "Unknown";
 	}
 	
-	s += (",\nhas FrameSize = " + std::to_string(frameSize) + " inches,\n" + "WheelsDiameter = " + std::to_string(wheelsDiameter) + " inches,\n"
-	    + "price = " + std::to_string(price) + " grn. and " + (hasBought ? "has already bought." : "is free.\n"));
+	char temp[8];
+	sprintf(temp, "%.1f", frameSize);
+	string s1 = string(temp);
+	s += (",\nhas FrameSize = " + s1 + " inches,\n" + "WheelsDiameter = ");
+	
+	sprintf(temp, "%.1f", wheelsDiameter);
+	s1 = string(temp);
+	s += (s1 + " inches,\n" + "price = ");
 
+	sprintf(temp, "%.1f", price);
+	s1 = string(temp);
+	s += (s1 + " grn. and " + (hasBought ? "has already bought." : "is free."));
+	
 	return s;
 }
 
 // static method 
 void Bicycle::infoAboutBicycleType(const BicycleTypes type){
-	//std::cout << Bicycle::bTypesDescr.at(type) << std::endl;
+	std::cout << bTypesDescr[static_cast<unsigned int>(type)] << std::endl;
 }
 
 void setPrice(const double newPrice, Bicycle& obj){
